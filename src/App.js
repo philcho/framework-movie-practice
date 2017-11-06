@@ -50,7 +50,7 @@ class App extends Component {
     return (
       <Grid className="App">
         <Row>
-          <Col xs={6}>
+          <Col xs={4}>
             <Panel header={appTitle}>
               <AddMovieForm handleAddMovie={this.handleAddMovie} />
               <SearchForm handleSearchQuery={this.handleSearchQuery} />
