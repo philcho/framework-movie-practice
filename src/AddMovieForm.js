@@ -11,7 +11,6 @@ export default class AddMovieForm extends Component {
       inputValue: ''
     }
 
-    this.handleAddMovie = this.props.handleAddMovie.bind(this);
     // Even bind functions we're not passing down via props. Otherwise 'this' becomes undefined during event handling. 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,7 +21,7 @@ export default class AddMovieForm extends Component {
   }
 
   handleSubmit(event) {
-    this.handleAddMovie(this.state.inputValue);
+    this.props.handleAddMovie(this.state.inputValue);
     this.setState({ inputValue: ''});
     event.preventDefault();
   }

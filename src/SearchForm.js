@@ -11,14 +11,13 @@ export default class SearchForm extends Component {
       inputValue: ''
     }
 
-    this.handleSearchQuery = this.props.handleSearchQuery.bind(this);
     // Even bind functions we're not passing down via props. Otherwise 'this' becomes undefined during event handling. 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleSubmit(event) {
-    this.handleSearchQuery(this.state.inputValue);
+    this.props.handleSearchQuery(this.state.inputValue);
     event.preventDefault();
   }
 
