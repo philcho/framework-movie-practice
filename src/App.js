@@ -3,6 +3,7 @@ import './data/exampleMovieList';
 import { Grid, Row, Col, Panel } from 'react-bootstrap';
 import MovieList from './MovieList';
 import SearchForm from './SearchForm';
+import AddMovieForm from './AddMovieForm';
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +12,15 @@ class App extends Component {
       movies: window.movies
     };
 
+    this.handleAddMovie = this.handleAddMovie.bind(this);
     this.handleSearchQuery = this.handleSearchQuery.bind(this);
+  }
+
+  handleAddMovie(title) {
+    if (title !== '') {
+      window.movies.push({ 'title': title });
+      this.setState({ movies: window.movies });
+    }
   }
 
   handleSearchQuery(query) {
@@ -43,6 +52,7 @@ class App extends Component {
         <Row>
           <Col xs={6}>
             <Panel header={appTitle}>
+              <AddMovieForm handleAddMovie={this.handleAddMovie} />
               <SearchForm handleSearchQuery={this.handleSearchQuery} />
               <MovieList movies={this.state.movies} />
               {this.state.movies.length === 0 ? 'Sorry, no results' : ''}
