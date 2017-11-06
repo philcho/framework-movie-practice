@@ -1,0 +1,16 @@
+body {
+  margin: 30px;
+}
+
+form {
+  margin-bottom: 10px;
+}
+
+.nav {
+  margin-top: 30px;
+  font-weight: bold;
+}
+
+.list-group-item {
+  border-top: 0;
+}

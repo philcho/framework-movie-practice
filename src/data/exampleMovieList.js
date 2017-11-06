@@ -1,7 +1,7 @@
 window.movies = [
-  {title: 'Mean Girls'},
-  {title: 'Hackers'},
-  {title: 'The Grey'},
-  {title: 'Sunshine'},
-  {title: 'Ex Machina'},
+  {title: 'Mean Girls', isWatched: false},
+  {title: 'Hackers', isWatched: true},
+  {title: 'The Grey', isWatched: false},
+  {title: 'Sunshine', isWatched: true},
+  {title: 'Ex Machina', isWatched: false},
 ];

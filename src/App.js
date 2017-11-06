@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
-import './data/exampleMovieList';
 import { Grid, Row, Col, Panel } from 'react-bootstrap';
-import MovieList from './MovieList';
-import SearchForm from './SearchForm';
+import './app.css';
+import './data/exampleMovieList';
 import AddMovieForm from './AddMovieForm';
+import SearchForm from './SearchForm';
+import ListToggleNav from './ListToggleNav';
+import MovieList from './MovieList';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: window.movies
+      movies: window.movies,
+      showWatchedList: true
     };
 
     this.handleAddMovie = this.handleAddMovie.bind(this);
     this.handleSearchQuery = this.handleSearchQuery.bind(this);
+    this.handleListToggle = this.handleListToggle.bind(this);
   }
 
   handleAddMovie(title) {
     if (title !== '') {
-      window.movies.push({ 'title': title });
+      window.movies.push({ 'title': title, 'isWatched': false });
       this.setState({ movies: window.movies });
     }
   }
@@ -27,7 +31,7 @@ class App extends Component {
     let searchQuery = query.toLowerCase();
 
     if (searchQuery === null) {
-      return window.movies;
+      this.setState({ movies: window.movies });
     }
 
     let matches = [];
@@ -42,6 +46,10 @@ class App extends Component {
     this.setState({ movies: matches });
   }
 
+  handleListToggle(selectedWatched) {
+    this.setState({ showWatchedList: selectedWatched });
+  }
+
   render() {
     const appTitle = (
       <h3>Movies List</h3>
@@ -54,7 +62,8 @@ class App extends Component {
             <Panel header={appTitle}>
               <AddMovieForm handleAddMovie={this.handleAddMovie} />
               <SearchForm handleSearchQuery={this.handleSearchQuery} />
-              <MovieList movies={this.state.movies} />
+              <ListToggleNav handleListToggle={this.handleListToggle} />
+              <MovieList movies={this.state.movies} showWatchedList={this.state.showWatchedList} />
               {this.state.movies.length === 0 ? 'Sorry, no results' : ''}
             </Panel>
           </Col>
