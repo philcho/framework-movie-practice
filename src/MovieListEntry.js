@@ -17,16 +17,18 @@ export default class MovieListEntry extends Component {
   }
 
   render() {
-    let watchBtn;
+    let btn = {};
     if(this.state.isWatched) {
-      watchBtn = (<Button bsSize="xs" bsStyle="success" className="pull-right" onClick={this.handleButtonClick}>Watched</Button>);
+      btn.style = 'success';
+      btn.label = 'Watched'
     } else {
-      watchBtn = (<Button bsSize="xs" bsStyle="primary" className="pull-right" onClick={this.handleButtonClick}>To Watch</Button>);
+      btn.style = 'primary';
+      btn.label = 'To Watch'
     }
 
     return (
       <ListGroupItem>
-        {watchBtn}
+        <Button bsSize="xs" bsStyle={btn.style} className="pull-right" onClick={this.handleButtonClick}>{btn.label}</Button>
         {this.props.movie.title} 
       </ListGroupItem>
     );
