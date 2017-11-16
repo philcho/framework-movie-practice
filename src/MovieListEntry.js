@@ -6,16 +6,22 @@ export default class MovieListEntry extends Component {
     super(props);
 
     this.state = {
-      isWatched: !!this.props.movie.isWatched
+      isWatched: !!this.props.movie.isWatched,
+      showDetails: false
     }
 
     this.handleCheckboxClick = this.handleCheckboxClick.bind(this);
+    this.handleTitleClick = this.handleTitleClick.bind(this);
   }
 
   handleCheckboxClick(event) {
-    console.log('handleCheckboxClick', event.target.checked);
     let isWatched = (event.target.checked) ? 1 : 0;
     this.props.handleWatchedChange(this.props.movie.title, isWatched);
+  }
+
+  handleTitleClick(event){
+    console.log('handleTitleClick', event.target);
+    this.setState({ 'showDetails': !this.state.showDetails });
   }
 
   render() {
@@ -31,10 +37,12 @@ export default class MovieListEntry extends Component {
       checkboxState = 'on';
     }
 
+    let detailsStyle = (this.state.showDetails) ? { 'display': 'block' } : { 'display': 'none' };
+
     return (
-      <ListGroupItem style={itemStyle}>
-        {this.props.movie.title} 
-        <ul>
+      <ListGroupItem styles={itemStyle}>
+        <p onClick={this.handleTitleClick}>{this.props.movie.title}</p>
+        <ul style={detailsStyle}>
           <li><label>Year:</label> 1995</li>
           <li><label>Runtime:</label> 107 minutes</li>
           <li><label>Metascore:</label> 46</li>

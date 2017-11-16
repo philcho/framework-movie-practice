@@ -32,10 +32,8 @@ var getAllMovies = function(callback) {
 var saveMovie = function(movie, callback) {
   connection.query(`INSERT INTO movies (title, isWatched) VALUES ('${movie}', 0);`, function(err, results, fields) {
     if(err) {
-      // console.log('err', err);
       callback(err, null);
     } else {
-      // console.log('results', results);
       callback(null, results);
     }
   });
@@ -45,7 +43,6 @@ var changeWatchedState = function(movie, isWatched, callback) {
   console.log('inside changeWatchedState', movie, isWatched);
   connection.query(`UPDATE movies SET isWatched = ${isWatched} WHERE title = '${movie}';`, function(err, results, fields) {
     if(err) {
-      console.log(err);
       callback(err, null);
     } else {
       callback(null, err);

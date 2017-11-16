@@ -26,7 +26,6 @@ class App extends Component {
     $.ajax({
       url: 'http://localhost:4568',
       success: function(data) {
-        console.log('getAllMovies Success!', data);
         this.setState({ movies: data });
       }.bind(this)
     });
@@ -39,7 +38,6 @@ class App extends Component {
         url: 'http://localhost:4568',
         data: { movie: title },
         success: function(data) {
-          console.log('handleAddMovie Success!', data);
           this.setState({ movies: data }, function() {
             this.getAllMovies();
           });
@@ -72,14 +70,11 @@ class App extends Component {
   }
 
   handleWatchedChange(title, isWatched) {
-    console.log('inside handleWatchedChange', title, isWatched);
-    // Update DB
     $.ajax({
       method: 'POST',
       url: 'http://localhost:4568/update',
       data: { movie: title, isWatched: isWatched },
       success: function(data) {
-        console.log('handleAddMovie Success!', data);
         this.setState({ movies: data }, function() {
           this.getAllMovies();
         });
