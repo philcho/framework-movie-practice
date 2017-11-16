@@ -14,3 +14,11 @@ form {
 .list-group-item {
   border-top: 0;
 }
+
+.checkbox {
+  display: inline;
+}
+
+.checkbox input[type="checkbox"] {
+  position: relative;
+}

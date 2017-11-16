@@ -3,13 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.5.1",
     "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "mysql": "^2.15.0",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.17"
   },
   "scripts": {
+    "server": "nodemon --ignore node_modules server/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

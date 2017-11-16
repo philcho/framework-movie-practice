@@ -6,7 +6,7 @@ export default class MovieList extends Component {
   render() {
     const entries = [];
     for (let i = 0; i < this.props.movies.length; i++) {
-      entries.push(<MovieListEntry movie={this.props.movies[i]} showWatchedList={this.props.showWatchedList} key={i}  />);
+      entries.push(<MovieListEntry movie={this.props.movies[i]} showWatchedList={this.props.showWatchedList} handleWatchedChange={this.props.handleWatchedChange} key={i}  />);
     }
 
     return (
