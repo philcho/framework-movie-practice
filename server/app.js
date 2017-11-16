@@ -32,7 +32,7 @@ app.post('/', function(req, res) {
 });
 
 app.post('/update', function(req, res) {
-  console.log('PUT request', req.body);
+  console.log('/update request', req.body);
   res.setHeader("Access-Control-Allow-Origin", "*");
   db.changeWatchedState(req.body.movie, req.body.isWatched, function(err, results, fields) {
     res.status(201).send(results);

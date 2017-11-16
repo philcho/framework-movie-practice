@@ -85,18 +85,6 @@ class App extends Component {
         });
       }.bind(this)
     });
-
-    // $.ajax({
-    //   method: 'PUT',
-    //   url: 'http://localhost:4568',
-    //   data: { movie: title, isWatched: isWatched },
-    //   success: function(data) {
-    //     console.log('handleWatchedChange success!', data);
-    //     this.setState({ movies: data }, function() {
-    //       this.getAllMovies();
-    //     });
-    //   }.bind(this)
-    // });
   }
 
   render() {
