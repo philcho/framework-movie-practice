@@ -66,6 +66,7 @@ class App extends Component {
   }
 
   handleListToggle(selectedWatched) {
+    // console.log('handleListToggle', selectedWatched);
     this.setState({ showWatchedList: selectedWatched });
   }
 

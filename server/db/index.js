@@ -40,7 +40,6 @@ var saveMovie = function(movie, callback) {
 };
 
 var changeWatchedState = function(movie, isWatched, callback) {
-  console.log('inside changeWatchedState', movie, isWatched);
   connection.query(`UPDATE movies SET isWatched = ${isWatched} WHERE title = '${movie}';`, function(err, results, fields) {
     if(err) {
       callback(err, null);
