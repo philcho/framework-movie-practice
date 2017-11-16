@@ -23,7 +23,6 @@ class App extends Component {
   }
 
   getAllMovies() {
-    // console.log('inside getAllMovies');
     $.ajax({
       url: 'http://localhost:4568',
       success: function(data) {
@@ -41,7 +40,9 @@ class App extends Component {
         data: { movie: title },
         success: function(data) {
           console.log('handleAddMovie Success!', data);
-          this.getAllMovies();
+          this.setState({ movies: data }, function() {
+            this.getAllMovies();
+          });
         }.bind(this)
       });
     }
@@ -73,7 +74,29 @@ class App extends Component {
   handleWatchedChange(title, isWatched) {
     console.log('inside handleWatchedChange', title, isWatched);
     // Update DB
-    // re-render list
+    $.ajax({
+      method: 'POST',
+      url: 'http://localhost:4568/update',
+      data: { movie: title, isWatched: isWatched },
+      success: function(data) {
+        console.log('handleAddMovie Success!', data);
+        this.setState({ movies: data }, function() {
+          this.getAllMovies();
+        });
+      }.bind(this)
+    });
+
+    // $.ajax({
+    //   method: 'PUT',
+    //   url: 'http://localhost:4568',
+    //   data: { movie: title, isWatched: isWatched },
+    //   success: function(data) {
+    //     console.log('handleWatchedChange success!', data);
+    //     this.setState({ movies: data }, function() {
+    //       this.getAllMovies();
+    //     });
+    //   }.bind(this)
+    // });
   }
 
   render() {

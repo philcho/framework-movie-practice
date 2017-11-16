@@ -8,8 +8,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// app.use(TODO: set CORS header)
+
 
 app.get('/', function(req, res) {
+  console.log('GET request');
   db.getAllMovies(function(err, results, fields) {
     // if (err) {
     //   res.status(404).send(err);
@@ -20,10 +23,19 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
+  console.log('POST request', req.body);
   res.setHeader("Access-Control-Allow-Origin", "*");
   let movie = req.body.movie;
   db.saveMovie(movie, function(err, results, fields) {
-    res.status(200).send(results);
+    res.status(201).send(results);
+  });
+});
+
+app.post('/update', function(req, res) {
+  console.log('PUT request', req.body);
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  db.changeWatchedState(req.body.movie, req.body.isWatched, function(err, results, fields) {
+    res.status(201).send(results);
   });
 });
 

@@ -27,20 +27,25 @@ export default class MovieListEntry extends Component {
   }
 
   render() {
-    let btn = {};
-    if(this.state.isWatched) {
-      btn.style = 'success';
-      btn.label = 'Watched'
-    } else {
-      btn.style = 'primary';
-      btn.label = 'To Watch'
-    }
+    // let btn = {};
+    // if(this.state.isWatched) {
+    //   btn.style = 'success';
+    //   btn.label = 'Watched'
+    // } else {
+    //   btn.style = 'primary';
+    //   btn.label = 'To Watch'
+    // }
 
     let itemStyle = {};
     if (this.state.isWatched === this.props.showWatchedList) {
       itemStyle = { 'display': 'block' };
     } else {
       itemStyle = { 'display': 'none' };
+    }
+
+    let checkboxState = '';
+    if (this.state.isWatched) {
+      checkboxState = 'on';
     }
 
     return (
@@ -51,7 +56,7 @@ export default class MovieListEntry extends Component {
           <li><label>Runtime:</label> 107 minutes</li>
           <li><label>Metascore:</label> 46</li>
           <li><label>imdbRating:</label> 6.2</li>
-          <li><label>Watched:</label> <Checkbox value='on' onClick={this.handleCheckboxClick} /></li>
+          <li><label>Watched:</label> <Checkbox value="on" checked={checkboxState} onClick={this.handleCheckboxClick} /></li>
         </ul>
       </ListGroupItem>
     );
