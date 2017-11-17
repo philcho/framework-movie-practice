@@ -44,7 +44,6 @@ export default class MovieListEntry extends Component {
     } else {
       itemStyle = { 'display': 'none' };
     }
-    console.log(itemStyle);
 
     let checkboxState = '';
     if (this.state.isWatched) {

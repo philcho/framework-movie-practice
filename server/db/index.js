@@ -1,52 +1,89 @@
-const mysql = require('mysql');
-const createTables = require('./config');
-// const models = require('./models');
-const Promise = require('bluebird');
-const database = 'movies';
-
-const connection = mysql.createConnection({
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('movies', 'root', 'Hackreactor84!', {
   host: 'localhost',
-  user: 'root',
-  password: 'Hackreactor84!',
-  database: 'movies'
+  dialect: 'mysql',
+
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
 });
 
-// const db = Promise.promisifyAll(connection, {multiArgs: true });
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been estalished successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database', err);
+  });
 
-// db.connectAsync()
-//   .then(() => console.log(`Connected to ${database} database as ID ${db.threadId}`))
-//   .then(() => db.queryAsync(`CREATE DATABASE IF NOT EXISTS ${database}`))
-//   .then(() => db.queryAsync(`USE ${database}`))
-//   .then(() => createTables(db));
+const Movie = sequelize.define('movie', {
+    title: {
+      type: Sequelize.STRING
+    },
+    isWatched: {
+      type: Sequelize.BOOLEAN
+    }
+  },
+  {
+    timestamps: false
+  }
+);
 
 var getAllMovies = function(callback) {
-  connection.query(`SELECT * FROM movies`, function(err, results, fields) {
-    if (err) {
-      callback(err, null);
-    } else {
+  Movie
+    .findAll({
+      attributes: ['title', 'isWatched']
+    })
+    .then(results => {
+      // console.log('getAllMovies success', results);
       callback(null, results);
-    }
-  });
+    })
+    .catch(err => {
+      // console.log('getAllMovies error', err);
+      callback(err, null);
+    });
 }
 
 var saveMovie = function(movie, callback) {
-  connection.query(`INSERT INTO movies (title, isWatched) VALUES ('${movie}', 0);`, function(err, results, fields) {
-    if(err) {
-      callback(err, null);
-    } else {
+  Movie.create({ title: movie, isWatched: 0 }, { fields: [ 'title', 'isWatched'] })
+    .then(results => {
+      // console.log('saveMovie success', movies);
       callback(null, results);
-    }
-  });
+    })
+    .catch(err => {
+      // console.log('saveMovie error', err);
+      callback(err, null);
+    });
 };
 
 var changeWatchedState = function(movie, isWatched, callback) {
-  connection.query(`UPDATE movies SET isWatched = ${isWatched} WHERE title = '${movie}';`, function(err, results, fields) {
-    if(err) {
+  Movie
+    .update(
+      { isWatched: isWatched }, 
+      { where: 
+        { title: movie }
+      } 
+    )
+    .then(results => {
+      Movie.findAll({
+        attributes: ['title', 'isWatched']
+      })
+      .then(data => {
+        results = data;
+      });
+    })
+    .then(results => {
+      console.log('changeWatchedState success', results);
+      callback(null, results);
+    })
+    .catch(err => {
+      console.log('changeWatchedState error', err);
       callback(err, null);
-    } else {
-      callback(null, err);
-    }
-  });
+    });
 };
 
 module.exports.getAllMovies = getAllMovies;

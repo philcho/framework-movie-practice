@@ -66,7 +66,6 @@ class App extends Component {
   }
 
   handleListToggle(selectedWatched) {
-    // console.log('handleListToggle', selectedWatched);
     this.setState({ showWatchedList: selectedWatched });
   }
 
@@ -76,6 +75,8 @@ class App extends Component {
       url: 'http://localhost:4568/update',
       data: { movie: title, isWatched: isWatched },
       success: function(data) {
+        console.log('handleWatchedChange success', data);
+        console.log(this.state.movies);
         this.setState({ movies: data }, function() {
           this.getAllMovies();
         });
