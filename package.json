@@ -12,7 +12,7 @@
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.17",
-    "sequelize": "^4.22.7"
+    "sequelize": "^4.32.7"
   },
   "scripts": {
     "server": "nodemon --ignore node_modules server/index.js",
